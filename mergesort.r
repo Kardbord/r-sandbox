@@ -40,7 +40,6 @@
   return(sorted)
 }
 
-# Sort a list
 merge_sort <- function(input) {
   .assert_numeric(input)
   if (length(input) == 0 || length(input) == 1) {
@@ -50,5 +49,19 @@ merge_sort <- function(input) {
   return(.merge(merge_sort(split$l), merge_sort(split$r)))
 }
 
-sorted_list <- merge_sort(c(1, 4, 2, 5, 1, 22, 4))
-print(sorted_list)
+if (sys.nframe() == 0) {
+  args <- commandArgs(trailingOnly = TRUE)
+
+  if (length(args) == 0) {
+    stop("Please provide a list of numbers to sort.")
+  }
+
+  inputs <- as.numeric(args)
+
+  if (anyNA(inputs)) {
+    stop("Please ensure all inputs are numeric values.")
+  }
+
+  sorted_list <- merge_sort(inputs)
+  print(sorted_list)
+}
